@@ -18,10 +18,9 @@ install -d /usr/local/etc/v2ray
 # Run
 if [[ $TUNNEL_TOKEN ]]; then
 echo 'has tunnel token, run cloudflared tunnel'
-wget https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 -O /root/cloudflared
+curl -L -H "Cache-Control: no-cache" -o /root/cloudflared https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64
 chmod +x /root/cloudflared
 /usr/local/bin/v2ray -config /usr/local/etc/v2ray/config.json & /root/cloudflared tunnel --no-autoupdate run --token $TUNNEL_TOKEN --protocol http2 --url localhost:$PORT
 else
 /usr/local/bin/v2ray -config /usr/local/etc/v2ray/config.json
 fi
-
